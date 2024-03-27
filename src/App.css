@@ -1,0 +1,11 @@
+
+.all{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+.table_tytle{
+  text-align: center ;
+  font-size:22px;
+ 
+}

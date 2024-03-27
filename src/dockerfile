@@ -1,0 +1,22 @@
+# Fetching the latest node image on alpine linux
+# גרסה=alpine ,node =השפה
+FROM node:alpine AS development
+
+# Declaring env
+# 
+ENV NODE_ENV development
+
+# Setting up the work directory
+# פותח תיקיה בדוקר שבתוכה כל האפליקציה
+WORKDIR /react-app
+
+# Installing dependencies
+# מעתיק את כל מה שיש לי בפרוייקט
+COPY . .
+# npm מתקין
+RUN npm install
+
+
+# Starting our application
+# מריץ את הפקודה
+CMD ["npm","start"]

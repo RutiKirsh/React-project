@@ -1,0 +1,93 @@
+import a from "../Pictures/1.jpg"
+//  import london from "../Pictures/london_1.png"
+
+import cart1 from "../Pictures/cart1.png"
+import { useSelector, useDispatch } from "react-redux";
+import { addToCart } from "../redux/actions/cartAction";
+import { decreaseQty } from "../redux/actions/productsAction";
+import { useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
+import { useState } from "react";
+export default function Shop() {
+    var [i, setI] = useState(0);
+    const products = useSelector((state) => state.productReducer);
+    const cart = useSelector((state)=>state.cartReducer);
+    const dispatch = useDispatch();
+    const navigate =  useNavigate();
+    const {productName} = useParams();
+    var d;
+    const success = (data)=>{
+        console.log(data);
+        d = data;
+        // navigate(`/my_cart/${data}`);
+    }
+    
+    return (
+        <>
+        {/* <button onClick={() => navigate(`/my_cart/${productName}`)}><img className={cart1} src={cart1} style={{"width": "35px"}}></img></button> */}
+        <button onClick={(e) => navigate(`/my_cart`)}><img className={cart1} src={cart1} style={{"width": "35px"}}></img></button>
+            {products.map((item) => (
+                // <h3>{item._id} {item.name} {item.description}</h3>
+                <div className="card" style={{ "width": "18rem"}}>
+                     <img className={item.image} src={item.image}></img>
+                    <div className="card-body">
+                        <center>
+                            <h5 className="card-title">{item.name}</h5>
+                        </center>
+                        <p className="card-text">price: {item.price}</p>
+                        <p className="card-text">description: {item.description}</p>
+
+                        {/* <button onClick={(e) => {e.preventDefault(); e.target.id = item._id ;success(e.target.id);dispatch(addToCart(e.target.id)); dispatch(decreaseQty("1"));{console.log(cart)}}} ><img className={cart1} src={cart1} style={{"width": "25px"}}></img></button> */}
+
+                        <button id={item._id} onClick={(e) => {e.preventDefault();console.log(e.target.parentElement.id); dispatch(addToCart(products[parseInt( e.target.parentElement.id)])); dispatch(decreaseQty("1"))}} >
+                            <img className={cart1} src={cart1} style={{"width": "25px"}}></img>
+                        </button>
+                        {/* <a href="#details" className="btn btn-primary">more details</a> */}
+                        {/* <button type="button" classNames="btn btn-primary" data-toggle="modal" data-target="#details">more Details</button> */}
+                        {/* <div className="modal fade" id="details" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                            <div className="modal-dialog">
+                                <div className="modal-content">
+                                    <div className="modal-header">
+                                        <h1 className="modal-title fs-5" id="staticBackdropLabel">Modal title</h1>
+                                        <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div className="modal-body">
+                                        <h3>hoiuhntbfgyrge</h3>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        <button type="button" className="btn btn-primary">Understood</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> */}
+                    </div>
+                </div>
+            ))}
+            {/* <button type="button" classNames="btn btn-primary" data-bs-toggle="modal" data-bs-target="#details">
+                more Details
+            </button>
+            <div className="modal fade" id="details" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div className="modal-dialog">
+                    <div className="modal-content">
+                        <div className="modal-header">
+                            <h1 className="modal-title fs-5" id="staticBackdropLabel">Modal title</h1>
+                            <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div className="modal-body">
+                           <h3>hoiuhntbfgyrge</h3>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="button" className="btn btn-primary">Understood</button>
+                        </div>
+                    </div>
+                </div>
+            </div> */}
+        </>
+    )
+}
+
+{/* <div><img className={d} src={d} width={450}></img></div> */ }
+
+
